@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Deployment started on `date`
+      - echo Syncing S3 Content
+      - aws s3 sync ./web/ s3://${WEB_BUCKET_NAME}
+  build:
+    commmands:
+      - echo Invalidating CloudFront cache
+#      - aws cloudfront create-invalidation --distribution-id xxxxxxxxx --paths "/*"
+  post_build:
+    commands:
+      - echo Deployment completed `date`
