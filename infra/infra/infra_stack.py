@@ -52,8 +52,13 @@ class InfraStack(core.Stack):
             ),
         )
 
-        policy_statement = iam.PolicyStatement(resources=[f"arn:aws:s3:::{bucket_name}/*"],
-                                               actions=["s3:putObject"])
-        codebuild_project.add_to_role_policy(policy_statement)
+        allow_object_actions = iam.PolicyStatement(resources=[f"arn:aws:s3:::{bucket_name}/*"],
+                                               actions=["s3:*"])
+        allow_bucket_actions = iam.PolicyStatement(
+            resources=[f"arn:aws:s3:::{bucket_name}"],
+            actions=['s3:*'],
+        )
+        codebuild_project.add_to_role_policy(allow_object_actions)
+        codebuild_project.add_to_role_policy(allow_bucket_actions)
 
     # The code that defines your stack goes here
