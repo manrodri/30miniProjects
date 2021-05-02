@@ -12,6 +12,7 @@ class InfraStack(core.Stack):
         prj_name = self.node.try_get_context("project_name")
         env_name = self.node.try_get_context("env")
         account_id = core.Aws.ACCOUNT_ID
+        PROJECT_NUMBER = 1
 
         # To Store Frontend App
         frontend_bucket = s3.Bucket(self, "frontend",
@@ -36,7 +37,7 @@ class InfraStack(core.Stack):
             webhook=True,
             webhook_filters=[
                 cb.FilterGroup.in_event_of(cb.EventAction.PUSH).and_branch_is(
-                    "master").and_file_path_is('web/')
+                    "master").and_file_path_is('js30Projects/')
             ]
         )
 
@@ -47,7 +48,8 @@ class InfraStack(core.Stack):
             environment=cb.BuildEnvironment(
                 build_image=cb.LinuxBuildImage.STANDARD_3_0,
                 environment_variables={
-                    'WEB_BUCKET_NAME': cb.BuildEnvironmentVariable(value=bucket_name)
+                    'WEB_BUCKET_NAME': cb.BuildEnvironmentVariable(value=bucket_name),
+                    'PROJECT_NUMBER': cb.BuildEnvironmentVariable(value=str(PROJECT_NUMBER))
                 }
             ),
         )
