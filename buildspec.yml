@@ -4,7 +4,7 @@ phases:
     commands:
       - echo Deployment started on `date`
       - echo Syncing S3 Content
-      - aws s3 sync ./js30Projects/${PROJECT_NUMBER} s3://${WEB_BUCKET_NAME}/${PROJECT_NUMBER}
+      - aws s3 cp --recursive ./js30Projects/${PROJECT_NUMBER} s3://${WEB_BUCKET_NAME}/${PROJECT_NUMBER}
   build:
     commmands:
       - echo Invalidating CloudFront cache
