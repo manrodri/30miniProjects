@@ -24,9 +24,7 @@ class InfraStack(core.Stack):
 
         bucket_name = frontend_bucket.bucket_name
 
-        github_token = core.SecretValue.secrets_manager(
-            env_name + '/github-token', json_field='github-from-marsApp	'
-        )
+        github_token = core.SecretValue.secrets_manager("dev/github-token", json_field='github-from-marsApp')
 
         cb.GitHubSourceCredentials(self, "CodeBuildGitHubCreds",
                                           access_token=github_token
