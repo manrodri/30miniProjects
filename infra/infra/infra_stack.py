@@ -12,7 +12,7 @@ class InfraStack(core.Stack):
         prj_name = self.node.try_get_context("project_name")
         env_name = self.node.try_get_context("env")
         account_id = core.Aws.ACCOUNT_ID
-        PROJECT_NUMBER = 1
+        PROJECT_NUMBER = 2
 
         # To Store Frontend App
         frontend_bucket = s3.Bucket(self, "frontend",
